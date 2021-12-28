@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Consolidated data of Covid cases</h2>
+        <p>Here's the list of Total Confirmed, New Deaths and Total Deaths due to Covid-19 across the world:</p>
+        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+        <br>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>Total Confirmed</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                {% for country in cases.Countries%}
+                <tr>
+                    <td>{{country.Country}}</td>
+                    <td>{{country.TotalConfirmed}}</td>
+                    <td>{{country.NewDeaths}}</td>
+                    <td>{{country.TotalDeaths}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase(); 
+                $("#myTable tr").filter(function() { 
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1) 
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
